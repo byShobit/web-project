@@ -1,0 +1,1308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSL Vehicle Resale</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #101010;
+            color: white;
+        }
+
+        /* HEADER */
+        header {
+            background: #050505;
+            border-bottom: 2px solid #ff6500;
+            padding: 15px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        span{
+            font-style:italic;
+        }
+
+        .logo {
+            color: #ff6500;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            display: block;
+            color: white;
+            font-size: 11px;
+            letter-spacing: 4px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff6500;
+        }
+
+        /* HOME */
+        #home {
+            min-height: 520px;
+            padding: 100px 8%;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.85)),
+                url("honda.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #ff6500;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #ff6500;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .hero-btn:hover {
+            background: #ff8500;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 60px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+        }
+
+        .section-title span {
+            color: #ff6500;
+        }
+
+        .section-title p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        /* VEHICLE GRID */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .vehicle-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: .3s;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-8px);
+            border-color: #ff6500;
+            box-shadow: 0 10px 30px rgba(255,101,0,.2);
+        }
+
+        /* REAL IMAGE */
+        .vehicle-image {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            background: #222;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: .4s;
+        }
+
+        .vehicle-card:hover .vehicle-image img {
+            transform: scale(1.08);
+        }
+
+        .vehicle-info {
+            padding: 18px;
+        }
+
+        .vehicle-info h3 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .vehicle-info p {
+            color: #bbb;
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .price {
+            color: #ff6500 !important;
+            font-size: 20px !important;
+            font-weight: bold;
+            margin: 12px 0 !important;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .info-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid #ff6500;
+        }
+
+        .purchase-btn {
+            background: #ff6500;
+            color: white;
+            border: 1px solid #ff6500;
+        }
+
+        .btn:hover {
+            opacity: .8;
+        }
+
+        /* ABOUT */
+        #about {
+            background: #181818;
+        }
+
+        .about-box {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-box p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            width: 200px;
+            padding: 25px;
+            background: #0e0e0e;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+
+        .feature h3 {
+            color: #ff6500;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* CONTACT */
+        .contact-box {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .contact-box input,
+        .contact-box textarea {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0;
+            background: #0b0b0b;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 5px;
+        }
+
+        .contact-box button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 10px;
+            background: #ff6500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #050505;
+            border-top: 2px solid #ff6500;
+            padding: 25px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        footer strong {
+            color: #ff6500;
+        }
+
+        /* POPUP */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            width: 400px;
+            max-width: 90%;
+            background: #1a1a1a;
+            border: 2px solid #ff6500;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .popup-content h2 {
+            color: #ff6500;
+            margin-bottom: 15px;
+        }
+
+        .popup-content p {
+            color: #ddd;
+            line-height: 1.8;
+        }
+
+        .close {
+            position: absolute;
+            right: 18px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 1100px) {
+            .vehicle-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 8px;
+            }
+
+            .vehicle-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">
+        <image src=".logo.png" width="100" height="75"></image>
+    
+        <span>No Speed limit</span>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#vehicles">Vehicles</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<section id="home">
+
+    <div class="hero">
+
+        <h1>
+            Find Your
+            <span>Next Ride</span>
+        </h1>
+
+        <p>
+            Buy quality pre-owned cars and bikes at affordable prices.
+            Explore our collection and choose your perfect vehicle.
+        </p>
+
+        <a href="#vehicles" class="hero-btn">
+            Explore Vehicles
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- VEHICLES -->
+<section id="vehicles">
+
+    <div class="section-title">
+
+        <h2>
+            Our <span>Vehicles</span>
+        </h2>
+
+        <p>
+            20 cars and bikes available for resale
+        </p>
+
+    </div>
+
+
+    <div class="vehicle-grid">
+
+
+        <!-- 1 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\swift.jpg"
+                     alt="Maruti Suzuki Swift">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Maruti Suzuki Swift</h3>
+
+                <p>2021 | Petrol</p>
+                <p>32,000 km | Manual</p>
+
+                <p class="price">₹5,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Maruti Suzuki Swift',
+                    '2021 | Petrol | 32,000 km | Manual | ₹5,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Maruti Suzuki Swift')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 2 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\i20.jpg"
+                     alt="Hyundai i20">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Hyundai i20</h3>
+                <p>2020 | Petrol</p>
+                <p>48,000 km | Manual</p>
+                <p class="price">₹6,20,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Hyundai i20',
+                    '2020 | Petrol | 48,000 km | Manual | ₹6,20,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Hyundai i20')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\tata.jpg"
+                     alt="Tata Nexon">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Tata Nexon</h3>
+                <p>2022 | Petrol</p>
+                <p>24,000 km | Manual</p>
+                <p class="price">₹8,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Tata Nexon',
+                    '2022 | Petrol | 24,000 km | Manual | ₹8,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Tata Nexon')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 4 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\honda.jpg"
+                     alt="Honda City">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Honda City</h3>
+                <p>2021 | Petrol</p>
+                <p>40,000 km | Automatic</p>
+                <p class="price">₹9,00,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Honda City',
+                    '2021 | Petrol | 40,000 km | Automatic | ₹9,00,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Honda City')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 5 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\fortuner.jpg"
+                     alt="Toyota Fortuner">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Toyota Fortuner</h3>
+                <p>2020 | Diesel</p>
+                <p>60,000 km | Automatic</p>
+                <p class="price">₹18,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Toyota Fortuner',
+                    '2020 | Diesel | 60,000 km | Automatic | ₹18,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Toyota Fortuner')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 6 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\bmw.jpg"
+                     alt="BMW 3 Series">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>BMW 3 Series</h3>
+                <p>2019 | Petrol</p>
+                <p>70,000 km | Automatic</p>
+                <p class="price">₹22,00,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('BMW 3 Series',
+                    '2019 | Petrol | 70,000 km | Automatic | ₹22,00,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('BMW 3 Series')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 7 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\audi.jpg"
+                     alt="Audi A4">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Audi A4</h3>
+                <p>2022 | Petrol</p>
+                <p>45,000 km | Automatic</p>
+                <p class="price">₹24,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Audi A4',
+                    '2022 | Petrol | 45,000 km | Automatic | ₹24,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Audi A4')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 8 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\benz.jpg"
+                     alt="Mercedes C Class">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Mercedes C-Class</h3>
+                <p>2020 | Petrol</p>
+                <p>55,000 km | Automatic</p>
+                <p class="price">₹26,00,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Mercedes C-Class',
+                    '2020 | Petrol | 55,000 km | Automatic | ₹26,00,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Mercedes C-Class')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 9 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\mahindra.jpg"
+                     alt="Mahindra XUV500">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Mahindra XUV500</h3>
+                <p>2020 | Diesel</p>
+                <p>75,000 km | Manual</p>
+                <p class="price">₹12,00,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Mahindra XUV500',
+                    '2020 | Diesel | 75,000 km | Manual | ₹12,00,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Mahindra XUV500')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 10 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\jeep.webp"
+                     alt="Jeep Compass">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Jeep Compass</h3>
+                <p>2021 | Diesel</p>
+                <p>38,000 km | Manual</p>
+                <p class="price">₹16,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Jeep Compass',
+                    '2021 | Diesel | 38,000 km | Manual | ₹16,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Jeep Compass')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 11 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\royal.jpg"
+                     alt="Royal Enfield Classic 350">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Royal Enfield Classic 350</h3>
+                <p>2020 | Petrol</p>
+                <p>20,000 km | Manual</p>
+                <p class="price">₹1,80,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Royal Enfield Classic 350',
+                    '2020 | Petrol | 20,000 km | Manual | ₹1,80,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Royal Enfield Classic 350')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 12 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\ktm.jpg"
+                     alt="KTM Duke 390">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>KTM Duke 390</h3>
+                <p>2022 | Petrol</p>
+                <p>12,000 km | Manual</p>
+                <p class="price">₹2,60,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('KTM Duke 390',
+                    '2022 | Petrol | 12,000 km | Manual | ₹2,60,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('KTM Duke 390')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 13 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\r15.jpg"
+                     alt="Yamaha R15 V4">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Yamaha R15 V4</h3>
+                <p>2023 | Petrol</p>
+                <p>8,000 km | Manual</p>
+                <p class="price">₹2,10,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Yamaha R15 V4',
+                    '2023 | Petrol | 8,000 km | Manual | ₹2,10,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Yamaha R15 V4')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 14 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\ns.jpg"
+                     alt="Bajaj Pulsar NS200">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Bajaj Pulsar NS200</h3>
+                <p>2021 | Petrol</p>
+                <p>25,000 km | Manual</p>
+                <p class="price">₹1,45,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Bajaj Pulsar NS200',
+                    '2021 | Petrol | 25,000 km | Manual | ₹1,45,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Bajaj Pulsar NS200')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 15 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\hero.jpg"
+                     alt="Hero Splendor Plus">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Hero Splendor Plus</h3>
+                <p>2022 | Petrol</p>
+                <p>16,000 km | Manual</p>
+                <p class="price">₹82,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Hero Splendor Plus',
+                    '2022 | Petrol | 16,000 km | Manual | ₹82,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Hero Splendor Plus')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 16 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\activa.jpg"
+                     alt="Honda Activa 6G">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Honda Activa 6G</h3>
+                <p>2022 | Petrol</p>
+                <p>18,000 km | Automatic</p>
+                <p class="price">₹75,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Honda Activa 6G',
+                    '2022 | Petrol | 18,000 km | Automatic | ₹75,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Honda Activa 6G')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 17 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\rtr.jpg"
+                     alt="TVS Apache RTR 160">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>TVS Apache RTR 160</h3>
+                <p>2021 | Petrol</p>
+                <p>16,000 km | Manual</p>
+                <p class="price">₹1,20,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('TVS Apache RTR 160',
+                    '2021 | Petrol | 16,000 km | Manual | ₹1,20,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('TVS Apache RTR 160')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 18 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\dominer.jpg"
+                     alt="Bajaj Dominar 400">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Bajaj Dominar 400</h3>
+                <p>2021 | Petrol</p>
+                <p>42,000 km | Manual</p>
+                <p class="price">₹1,95,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Bajaj Dominar 400',
+                    '2021 | Petrol | 42,000 km | Manual | ₹1,95,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Bajaj Dominar 400')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 19 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\skoda.jpg"
+                     alt="Skoda Slavia">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Skoda Slavia</h3>
+                <p>2022 | Petrol</p>
+                <p>28,000 km | Automatic</p>
+                <p class="price">₹14,50,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Skoda Slavia',
+                    '2022 | Petrol | 28,000 km | Automatic | ₹14,50,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Skoda Slavia')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 20 -->
+        <div class="vehicle-card">
+
+            <div class="vehicle-image">
+                <img src="C:\Users\LENOVO S06\Desktop\shobhitweb\nsl\vir.jpg"
+                     alt="Volkswagen Virtus">
+            </div>
+
+            <div class="vehicle-info">
+
+                <h3>Volkswagen Virtus</h3>
+                <p>2021 | Petrol</p>
+                <p>36,000 km | Automatic</p>
+                <p class="price">₹15,00,000</p>
+
+                <div class="buttons">
+
+                    <button class="btn info-btn"
+                    onclick="showInfo('Volkswagen Virtus',
+                    '2021 | Petrol | 36,000 km | Automatic | ₹15,00,000')">
+                    Information
+                    </button>
+
+                    <button class="btn purchase-btn"
+                    onclick="purchase('Volkswagen Virtus')">
+                    Purchase
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+    <div class="section-title">
+        <h2>About <span>NSL</span></h2>
+    </div>
+
+    <div class="about-box">
+
+        <p>
+            NSL Vehicle Resale is an online platform for buying and selling
+            pre-owned cars and bikes. We provide vehicle details, pricing
+            information and an easy purchase process.
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+                <h3>20+</h3>
+                <p>Vehicles</p>
+            </div>
+
+            <div class="feature">
+                <h3>100%</h3>
+                <p>Quality Focus</p>
+            </div>
+
+            <div class="feature">
+                <h3>24/7</h3>
+                <p>Support</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+
+    <div class="section-title">
+        <h2>Contact <span>Us</span></h2>
+    </div>
+
+    <div class="contact-box">
+
+        <input type="text" placeholder="Your Name">
+
+        <input type="email" placeholder="Your Email">
+
+        <input type="tel" placeholder="Phone Number">
+
+        <textarea rows="5"
+        placeholder="Your Message"></textarea>
+
+        <button onclick="sendMessage()">
+            Send Message
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        © 2026 <strong>NSL Vehicle Resale</strong>
+        | Buy • Sell • Drive
+    </p>
+
+</footer>
+
+
+<!-- INFORMATION POPUP -->
+<div class="popup" id="infoPopup">
+
+    <div class="popup-content">
+
+        <span class="close"
+        onclick="closePopup()">×</span>
+
+        <h2 id="popupTitle">
+            Vehicle Information
+        </h2>
+
+        <p id="popupText"></p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function showInfo(name, details) {
+
+        document.getElementById("popupTitle").innerHTML = name;
+
+        document.getElementById("popupText").innerHTML =
+            "<strong>Vehicle Details</strong><br><br>" +
+            details;
+
+        document.getElementById("infoPopup").style.display = "flex";
+    }
+
+
+    function closePopup() {
+
+        document.getElementById("infoPopup").style.display = "none";
+
+    }
+
+
+    function purchase(vehicle) {
+
+        alert(
+            "Thank you for choosing NSL Vehicle Resale!\\n\\n" +
+            "Selected Vehicle: " + vehicle +
+            "\\n\\nOur team will contact you for purchase details."
+        );
+
+    }
+
+
+    function sendMessage() {
+
+        alert(
+            "Thank you! Your message has been submitted."
+        );
+
+    }
+
+
+    window.onclick = function(event) {
+
+        let popup = document.getElementById("infoPopup");
+
+        if (event.target == popup) {
+
+            popup.style.display = "none";
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
+```
